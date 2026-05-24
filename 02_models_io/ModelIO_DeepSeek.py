@@ -1,6 +1,10 @@
 import os
 from langchain_deepseek import ChatDeepSeek
 
+from dotenv import load_dotenv
+
+# .env文件读取
+load_dotenv()
 
 # 初始化 deepseek
 # 给学生们看看ChatDeepSeek类的源码，解释为什么不写调用地址,chat_modesl.py源码第176行

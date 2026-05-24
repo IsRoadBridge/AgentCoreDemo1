@@ -15,13 +15,7 @@ from dotenv import load_dotenv
 # )
 
 
-# 第2版：配置进环境变量
-# llm = ChatOpenAI(
-#     model="qwen-plus",
-#     # 配置进环境变量
-#     api_key=os.getenv("aliQwen-api"),
-#     base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
-# )
+
 
 # 第3版：通过 python-dotenv 库读取 env 文件中的环境变量，并加载到当前运行的环境中
 # 加载.env文件中的环境变量（指定编码，避免中文乱码）
@@ -43,3 +37,20 @@ print(response.content)
 
 print()
 
+
+# 第2版：配置进环境变量
+llm2 = ChatOpenAI(
+    model="qwen-plus",
+    # 配置进环境变量
+    api_key=os.getenv("aliQwen-api"),
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+)
+
+# # 2.提供问题，并调用千问llm
+response = llm2.invoke("你是谁")
+
+print(response)#元数据
+print()
+print(response.content)
+
+print()

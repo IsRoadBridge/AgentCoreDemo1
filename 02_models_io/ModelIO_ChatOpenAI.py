@@ -1,5 +1,9 @@
 from langchain_openai import ChatOpenAI
 import os
+from dotenv import load_dotenv
+
+# .env文件读取
+load_dotenv()
 
 chatLLM = ChatOpenAI(
     api_key=os.getenv("aliQwen-api"),

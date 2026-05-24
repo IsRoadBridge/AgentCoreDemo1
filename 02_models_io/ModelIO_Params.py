@@ -3,6 +3,11 @@
 """
 import os
 from langchain.chat_models import init_chat_model
+from dotenv import load_dotenv
+
+# .env文件读取
+load_dotenv()
+
 
 model = init_chat_model(
     model="deepseek-chat",

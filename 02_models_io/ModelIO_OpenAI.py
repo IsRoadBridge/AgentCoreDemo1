@@ -1,6 +1,10 @@
 # Please install OpenAI SDK first: `pip install openai`
 import os
 from openai import OpenAI
+from dotenv import load_dotenv
+
+# .env文件读取
+load_dotenv()
 
 client = OpenAI(
     api_key=os.getenv("deepseek-api"),

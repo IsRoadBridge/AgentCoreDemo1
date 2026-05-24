@@ -4,6 +4,11 @@
 import os
 from langchain_community.chat_models.tongyi import ChatTongyi
 from langchain_core.messages import HumanMessage
+from dotenv import load_dotenv
+
+# .env文件读取
+load_dotenv()
+
 
 chatLLM = ChatTongyi(
     model="qwen-plus",
