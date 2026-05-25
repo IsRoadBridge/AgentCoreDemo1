@@ -12,6 +12,9 @@ import os
 from langchain.chat_models import init_chat_model
 from loguru import logger
 from pydantic import BaseModel, Field
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Person(BaseModel):
     """

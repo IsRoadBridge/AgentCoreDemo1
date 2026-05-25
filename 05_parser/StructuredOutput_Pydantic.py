@@ -12,7 +12,9 @@ from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from loguru import logger
 from pydantic import BaseModel, Field, field_validator
+from dotenv import load_dotenv
 
+load_dotenv()
 
 class Product(BaseModel):
     """

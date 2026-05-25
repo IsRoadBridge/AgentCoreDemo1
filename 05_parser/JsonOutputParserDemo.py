@@ -10,7 +10,9 @@ from langchain_core.prompts import ChatPromptTemplate
 import os
 from langchain.chat_models import init_chat_model
 from loguru import logger
+from dotenv import load_dotenv
 
+load_dotenv()
 # 创建聊天提示模板，包含系统角色设定和用户问题输入
 chat_prompt = ChatPromptTemplate.from_messages([
     ("system", "你是一个{role}，请简短回答我提出的问题，结果返回json格式，q字段表示问题，a字段表示答案。"),
