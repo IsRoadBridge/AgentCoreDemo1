@@ -1,0 +1,28 @@
+想让当前虚拟环境以后默认走清华源，可先执行：
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+ 
+- 安装langchain
+- 安装langchain-openai
+- 安装openai
+- 安装dotenv
+- 安装langchain-core
+ 
+ 
+# langchain 提供核心框架（Chain, Agent, Memory, Retriever等）
+pip install  langchain -i https://pypi.tuna.tsinghua.edu.cn/simple
+ 
+# 提供OpenAI专用组件（LLM, Chat, Embeddings等），依赖 openai SDK
+pip install langchain-openai  -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install  openai -i https://pypi.tuna.tsinghua.edu.cn/simple
+ 
+ 
+# 通过 python-dotenv 库读取 env 文件中的环境变量，并加载到当前运行的环境中
+pip install python-dotenv -i https://pypi.tuna.tsinghua.edu.cn/simple
+ 
+pip install langchain-core
+
+# 下载langchain_community依赖
+pip install langchain_community
+
+# 调用deepseek需要下载相关依赖
+pip install langchain-deepseek
