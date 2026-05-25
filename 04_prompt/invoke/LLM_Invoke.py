@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
 from langchain.messages import HumanMessage,SystemMessage
 #通过 python-dotenv 库读取 env 文件中的环境变量，并加载到当前运行的环境中
-#load_dotenv()
+load_dotenv()
 
 # List<Messages>
 

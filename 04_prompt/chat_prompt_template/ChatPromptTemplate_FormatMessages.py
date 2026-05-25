@@ -28,7 +28,10 @@ chat_prompt = ChatPromptTemplate(
 import os
 from langchain.chat_models import init_chat_model
 from langchain_core.prompts import ChatPromptTemplate
+from dotenv import load_dotenv
 
+# .env文件读取
+load_dotenv()
 # 创建聊天提示模板，包含系统角色设定和用户问题格式
 # 系统消息定义了AI助手的角色，人类消息定义了用户问题的格式
 chat_prompt = ChatPromptTemplate.from_messages(
@@ -62,15 +65,15 @@ prompt_value3 = chat_prompt.format(**{"role": "python开发工程师", "question
 print(prompt_value3)
 
 
-# llm = init_chat_model(
-#     model="qwen-plus",
-#     model_provider="openai",
-#     api_key=os.getenv("aliQwen-api"),
-#     base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
-# )
-# print()
-# print("======================")
-#
-# result = llm.invoke(prompt_value)
-# print(result)
-# print(result.content)
+llm = init_chat_model(
+    model="qwen-plus",
+    model_provider="openai",
+    api_key=os.getenv("aliQwen-api"),
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+)
+print()
+print("======================")
+
+result = llm.invoke(prompt_value)
+print(result)
+print(result.content)

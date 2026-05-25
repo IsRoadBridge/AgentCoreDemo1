@@ -10,6 +10,10 @@ messages 参数支持如下格式：
 from langchain_core.prompts import ChatPromptTemplate
 import os
 from langchain.chat_models import init_chat_model
+from dotenv import load_dotenv
+
+# .env文件读取
+load_dotenv()
 
 chatPromptTemplate = ChatPromptTemplate(
     [

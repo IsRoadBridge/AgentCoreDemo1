@@ -3,7 +3,9 @@ import os
 from langchain.chat_models import init_chat_model
 # 方式1：使用构造方法实例化提示词模板
 from langchain_core.prompts import PromptTemplate
+from dotenv import load_dotenv
 
+load_dotenv()
 # 创建一个PromptTemplate对象，用于生成格式化的提示词模板
 # 该模板包含两个变量：role（角色）和question（问题）
 template = PromptTemplate(
