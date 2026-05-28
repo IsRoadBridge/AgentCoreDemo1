@@ -8,6 +8,10 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableLambda
 from loguru import logger
 import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 model = init_chat_model(
     model="qwen-plus",

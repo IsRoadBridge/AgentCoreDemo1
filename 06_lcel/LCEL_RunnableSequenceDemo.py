@@ -9,6 +9,10 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from loguru import logger
 import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 # 创建聊天提示模板，包含系统角色设定和用户问题输入
 chat_prompt = ChatPromptTemplate.from_messages([
