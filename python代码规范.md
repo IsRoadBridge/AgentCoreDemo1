@@ -2,6 +2,8 @@
 
 1. 命名统一
 
+文件名：全小写字母，单词间用下划线 _ 分隔  my_module.py file_utils.py test_calculator.py（测试文件常用 test_ 前缀）
+
 变量、函数、方法：小写字母 + 下划线（snake_case），例如 user_name、get_data。
 
 常量：全大写 + 下划线，例如 MAX_COUNT = 100。

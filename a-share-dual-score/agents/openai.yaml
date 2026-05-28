@@ -1,0 +1,4 @@
+interface:
+  display_name: "A股双评分"
+  short_description: "按买入前和次日开盘两套规则给A股打分并给出交易建议"
+  default_prompt: "Use $a-share-dual-score to score one or more A-share stocks for buy-before-close and next-day open decisions."
