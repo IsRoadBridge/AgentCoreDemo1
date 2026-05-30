@@ -9,7 +9,7 @@ import dashscope
 import os
 from http import HTTPStatus
 import numpy as np
-
+from langchain_community.embeddings import OllamaEmbeddings
 
 # 准备输入文本数据
 texts = [
@@ -21,18 +21,26 @@ texts = [
 # 获取每个文本的embedding向量
 embeddings = []
 # 假如要处理图片，请参考https://bailian.console.aliyun.com/cn-beijing/?productCode=p_efm&tab=doc#/doc/?type=model&url=2842587
-for text in texts:
-    input_data = [{'text': text}]
-    resp = dashscope.MultiModalEmbedding.call(
-        model="multimodal-embedding-v1",
-        api_key=os.getenv("aliQwen-api"),
-        base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
-        input=input_data
-    )
+# for text in texts:
+#     input_data = [{'text': text}]
+#     resp = dashscope.MultiModalEmbedding.call(
+#         model="multimodal-embedding-v1",
+#         api_key=os.getenv("aliQwen-api"),
+#         base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+#         input=input_data
+#     )
+#
+#     if resp.status_code == HTTPStatus.OK:
+#         embedding = resp.output['embeddings'][0]['embedding']
+#         embeddings.append(embedding)
 
-    if resp.status_code == HTTPStatus.OK:
-        embedding = resp.output['embeddings'][0]['embedding']
-        embeddings.append(embedding)
+# 1. 初始化嵌入模型（只需一次）
+embeddings_model = OllamaEmbeddings(model="bge-m3")
+
+for text in texts:
+    # embed_query 直接返回向量列表，不是响应对象
+    vector = embeddings_model.embed_query(text)
+    embeddings.append(vector)
 
 # 计算余弦相似度
 def cosine_similarity(vec1, vec2):

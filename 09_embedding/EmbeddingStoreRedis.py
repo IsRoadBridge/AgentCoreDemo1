@@ -1,15 +1,23 @@
 # pip install langchain-community dashscope redis redisvl
 import os
-from langchain_community.embeddings import DashScopeEmbeddings
+from langchain_community.embeddings import DashScopeEmbeddings, HuggingFaceEmbeddings, OllamaEmbeddings
 from langchain_community.vectorstores import Redis
 from langchain_core.documents import Document
+from langchain_openai import OpenAIEmbeddings
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # 1. 初始化阿里千问 Embedding 模型
-embeddings = DashScopeEmbeddings(
-    model="text-embedding-v3",  # 支持 v1 或 v2
-    dashscope_api_key=os.getenv("aliQwen-api")  # 从环境变量读取
-)
+# embeddings = DashScopeEmbeddings(
+#     model="text-embedding-v3",  # 支持 v1 或 v2
+#     dashscope_api_key=os.getenv("aliQwen-api")  # 从环境变量读取
+# )
 
+embeddings = OllamaEmbeddings(
+    model="bge-m3",    # 使用BGE-M3模型，效果非常好
+    base_url="http://localhost:11434"  # Ollama的默认地址，通常不需要修改
+)
 
 # 2. 准备要向量化的文本（Document 列表）
 texts = [
@@ -23,7 +31,7 @@ documents = [Document(page_content=text, metadata={"source": "manual"}) for text
 vector_store = Redis.from_documents(
     documents=documents,
     embedding=embeddings,
-    redis_url="redis://localhost:26379",  # 替换为你的 Redis 地址
+    redis_url="redis://localhost:6379",  # 替换为你的 Redis 地址
     index_name="my_index11",               # 向量索引名称
 )
 

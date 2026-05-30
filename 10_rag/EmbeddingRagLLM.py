@@ -8,8 +8,11 @@ from langchain_community.document_loaders import Docx2txtLoader
 from langchain_core.prompts import PromptTemplate
 from langchain_classic.text_splitter import CharacterTextSplitter
 from langchain_core.runnables import RunnablePassthrough
-from langchain_community.embeddings import DashScopeEmbeddings
+from langchain_community.embeddings import DashScopeEmbeddings, OllamaEmbeddings
 from langchain_community.vectorstores import Redis
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # 没有使用RAG，直接查询大模型，出现歧义，上课时先给学生演示before情况，没有用RAG
 '''llm = init_chat_model(
@@ -21,11 +24,18 @@ from langchain_community.vectorstores import Redis
 response=llm.invoke("00000是什么意思")
 print(response.content)'''
 
+# llm = init_chat_model(
+#     model="qwen-plus",
+#     model_provider="openai",
+#     api_key=os.getenv("aliQwen-api"),
+#     base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+# )
+
 llm = init_chat_model(
-    model="qwen-plus",
-    model_provider="openai",
-    api_key=os.getenv("aliQwen-api"),
-    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+    model="deepseek-chat", # deepseek-chat 对应 DeepSeek-V3.2 的非思考模式
+    model_provider="deepseek",
+    api_key=os.getenv("deepseek-api"),
+    base_url="https://api.deepseek.com"
 )
 
 prompt_template = """
@@ -47,9 +57,14 @@ prompt = PromptTemplate(
 )
 
 # 1. 初始化阿里千问 Embedding 模型
-embeddings = DashScopeEmbeddings(
-    model="text-embedding-v3",  # 支持 v1 或 v2
-    dashscope_api_key=os.getenv("aliQwen-api")  # 从环境变量读取
+# embeddings = DashScopeEmbeddings(
+#     model="text-embedding-v3",  # 支持 v1 或 v2
+#     dashscope_api_key=os.getenv("aliQwen-api")  # 从环境变量读取
+# )
+#初始化本地向量模型bge-m3
+embeddings = OllamaEmbeddings(
+    model="bge-m3",    # 使用BGE-M3模型，效果非常好
+    base_url="http://localhost:11434",  # Ollama的默认地址，通常不需要修改
 )
 
 # 4. 加载文档
@@ -71,7 +86,7 @@ print(f"文档个数:{len(texts)}")
 vector_store = Redis.from_documents(
     documents=documents,
     embedding=embeddings,
-    redis_url="redis://localhost:26379",  # 替换为你的 Redis 地址
+    redis_url="redis://localhost:6379",  # 替换为你的 Redis 地址
     index_name="my_index3",  # 向量索引名称
 )
 

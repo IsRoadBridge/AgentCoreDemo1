@@ -3,13 +3,17 @@ https://bailian.console.aliyun.com/cn-beijing/?tab=api#/api/?type=model&url=2587
 pip install langchain-community dashscope
 """
 
-from langchain_community.embeddings import DashScopeEmbeddings
+from langchain_community.embeddings import DashScopeEmbeddings, OllamaEmbeddings
 
-embeddings = DashScopeEmbeddings(
-    model="text-embedding-v4",
-    # other params...
+# embeddings = DashScopeEmbeddings(
+#     model="text-embedding-v4",
+#     # other params...
+# )
+
+embeddings = OllamaEmbeddings(
+    model="bge-m3",    # 使用BGE-M3模型，效果非常好
+    base_url="http://localhost:11434"  # Ollama的默认地址，通常不需要修改
 )
-
 text = "This is a test document."
 
 query_result = embeddings.embed_query(text)

@@ -1,18 +1,19 @@
 
 from langchain_redis import RedisConfig, RedisVectorStore
-from langchain_community.embeddings import DashScopeEmbeddings
+from langchain_community.embeddings import DashScopeEmbeddings, OllamaEmbeddings
 import os
 
 # 初始化 Embedding 模型
 # 1. 初始化阿里千问 Embedding 模型
-embeddingsModel = DashScopeEmbeddings(
-    model="text-embedding-v3",  # 支持 v1 或 v2
-    dashscope_api_key=os.getenv("aliQwen-api")  # 从环境变量读取
-)
+# embeddingsModel = DashScopeEmbeddings(
+#     model="text-embedding-v3",  # 支持 v1 或 v2
+#     dashscope_api_key=os.getenv("aliQwen-api")  # 从环境变量读取
+# )
+embeddingsModel = OllamaEmbeddings(model="bge-m3")
 
 #2. 创建Redis向量存储实例
 vector_store = RedisVectorStore(embeddingsModel,
-                                config=RedisConfig(index_name="newsgroups",redis_url="redis://localhost:26379"))
+                                config=RedisConfig(index_name="newsgroups",redis_url="redis://localhost:6379"))
 
 # ========== 查询数据 ==========
 # 定义查询文本
