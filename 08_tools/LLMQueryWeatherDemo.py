@@ -4,12 +4,22 @@ from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 from loguru import logger
 from QueryWeatherTool import get_weather
+from  dotenv import load_dotenv
+
+load_dotenv()
 
 # 初始化大语言模型实例
+# llm = ChatOpenAI(
+#     model="qwen-plus",
+#     api_key=os.getenv("aliQwen-api"),
+#     base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+# )
+
+
 llm = ChatOpenAI(
-    model="qwen-plus",
-    api_key=os.getenv("aliQwen-api"),
-    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+    model="deepseek-chat", # deepseek-chat 对应 DeepSeek-V3.2 的非思考模式
+    api_key=os.getenv("deepseek-api"),
+    base_url="https://api.deepseek.com"
 )
 
 # 将模型与工具绑定，使其能够调用 get_weather 工具

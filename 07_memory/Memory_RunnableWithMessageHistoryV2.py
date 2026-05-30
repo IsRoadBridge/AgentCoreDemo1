@@ -8,6 +8,9 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # 设置本地模型
 llm = init_chat_model(

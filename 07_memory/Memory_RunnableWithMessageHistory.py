@@ -9,6 +9,9 @@ from langchain.chat_models import init_chat_model
 from langchain_core.chat_history import InMemoryChatMessageHistory
 from loguru import logger
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # 设置本地模型
 llm = init_chat_model(

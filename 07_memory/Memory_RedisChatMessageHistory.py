@@ -6,8 +6,11 @@ from langchain_core.runnables import RunnableConfig
 import os
 import redis  #导入原生redis库，pip install redis==5.3.1
 from loguru import logger
+from dotenv import load_dotenv
 
-REDIS_URL = "redis://localhost:26379"
+load_dotenv()
+
+REDIS_URL = "redis://localhost:6379"
 # 创建原生Redis客户端,decode_responses 控制 Redis 返回数据的类型：False 返字节串，True 返字符串
 redis_client = redis.Redis.from_url(REDIS_URL, decode_responses=True)
 

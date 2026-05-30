@@ -2,7 +2,9 @@ from langchain_core.tools import tool
 import json
 import os
 import httpx
+from dotenv import load_dotenv
 
+load_dotenv()
 
 @tool
 def get_weather(loc):
@@ -24,7 +26,6 @@ def get_weather(loc):
     params = {
         "q": loc,
         "appid": os.getenv("OPENWEATHER_API_KEY"),  # 从环境变量中读取 API Key
-        #"appid": "fc19f7b552b4c1ae467e36fe6955666",  # 从环境变量中读取 API Key
         "units": "metric",  # 使用摄氏度
         "lang": "zh_cn"  # 输出语言为简体中文
     }

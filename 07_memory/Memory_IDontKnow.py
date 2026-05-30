@@ -3,6 +3,9 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain.chat_models import init_chat_model
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # 设置本地模型
 llm = init_chat_model(
@@ -24,7 +27,8 @@ chain = prompt | llm | parser
 
 # 执行链式调用
 print(chain.invoke({"question": "我叫张三，你叫什么?"}))
-
+print("*" * 50)
+print("\n")
 print(chain.invoke({"question": "你知道我是谁吗?"}))
 
 """
