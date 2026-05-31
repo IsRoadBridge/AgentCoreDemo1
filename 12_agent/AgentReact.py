@@ -3,6 +3,9 @@ import os
 from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
 from langchain.tools import tool
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # 模拟产品数据库
 PRODUCT_DATABASE = {
@@ -89,9 +92,9 @@ def check_inventory(product_id: str) -> str:
 
 # 创建代理
 model = ChatOpenAI(
-    model="qwen-plus",
-    api_key=os.getenv("aliQwen-api"),
-    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model="deepseek-chat", # deepseek-chat 对应 DeepSeek-V3.2 的非思考模式
+    api_key=os.getenv("deepseek-api"),
+    base_url="https://api.deepseek.com"
 )
 
 agent = create_agent(

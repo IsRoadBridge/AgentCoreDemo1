@@ -2,7 +2,9 @@ import json
 import os
 import httpx
 from loguru import logger
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # ---------------------- 极简版 MCP 服务类（无 FastMCP 字样，纯原生实现）----------------------
 # 替换原 FastMCP，命名为 MCPWeatherServer，无第三方依赖，适配 Python 3.13.1
@@ -66,6 +68,45 @@ def get_weather(city: str) -> str:
     logger.info(f"查询 {city} 天气结果：{data}")
     return json.dumps(data, ensure_ascii=False)
 
+def test_openweather_connection():
+    """测试能否调用 OpenWeather API（不依赖 MCP 框架）"""
+    import httpx
+    import os
+
+    url = "https://api.openweathermap.org/data/2.5/weather"
+    params = {
+        "q": "Beijing",
+        "appid": os.getenv("OPENWEATHER_API_KEY"),
+        "units": "metric",
+        "lang": "zh_cn"
+    }
+    print("正在测试 OpenWeather API 连接...")
+    try:
+        # 使用更长的超时，并将连接和读取超时分开
+        timeout = httpx.Timeout(
+            connect=15.0,  # 建立连接的最大时间
+            read=20.0,  # 读取服务器响应的最大时间
+            write=None,  # 写入数据超时（GET 请求用不到，可设为 None）
+            pool=None  # 从连接池获取连接的超时（单连接可设为 None）
+        )
+        resp = httpx.get(url, params=params, timeout=timeout)
+        resp.raise_for_status()
+        data = resp.json()
+        print("✅ 调用成功！天气数据：", data["weather"][0]["description"])
+        return True
+    except httpx.TimeoutException as e:
+        print(f"❌ 超时失败：{e}")
+        return False
+    except Exception as e:
+        print(f"❌ 其他错误：{e}")
+        return False
+
+# if __name__ == "__main__":
+#     # 先测试 API 连通性
+#     test_openweather_connection()
+#     # 再启动原来的 MCP 服务器（可选）
+#     # logger.info("启动 MCP SSE 天气服务器...")
+#     # mcp.run(transport="sse")
 
 if __name__ == "__main__":
     logger.info("启动 MCP SSE 天气服务器，监听 http://127.0.0.1:8000/sse")

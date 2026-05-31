@@ -6,7 +6,9 @@ from typing import TypedDict
 from langchain.agents import create_agent
 from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # 1.Tool 定义
 @tool
@@ -43,9 +45,9 @@ class WeatherCompareOutput(TypedDict):
 
 # 3 模型（OpenAI Compatible）
 model = ChatOpenAI(
-    model="qwen-plus",
-    api_key=os.getenv("aliQwen-api"),
-    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    model="deepseek-chat", # deepseek-chat 对应 DeepSeek-V3.2 的非思考模式
+    api_key=os.getenv("deepseek-api"),
+    base_url="https://api.deepseek.com"
 )
 
 

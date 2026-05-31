@@ -11,7 +11,9 @@ from langchain_core.tools import tool
 多工具并行调用,一次性发起了同一个外部函数的两次调用请求并将最后结果聚合
 一次问题 → 多工具调用 → 聚合回答
 '''
+from dotenv import load_dotenv
 
+load_dotenv()
 
 @tool
 def get_weather(loc):
@@ -32,8 +34,8 @@ def get_weather(loc):
     # Step 2. 设置查询参数，包括城市名、API Key、单位和语言
     params = {
         "q": loc,
-        #"appid": os.getenv("OPENWEATHER_API_KEY"),  # 从环境变量中读取 API Key
-        "appid": "fc19f7b552b4c1ae467e36fe69556668",  # 从环境变量中读取 API Key
+        "appid": os.getenv("OPENWEATHER_API_KEY"),  # 从环境变量中读取 API Key
+        #"appid": "fc19f7b552b4c1ae467e36fe69556668",  # 从环境变量中读取 API Key
         "units": "metric",  # 使用摄氏度
         "lang": "zh_cn"  # 输出语言为简体中文
     }
@@ -48,12 +50,12 @@ def get_weather(loc):
 
 
 # 初始化模型实例，用于处理自然语言任务
+# 创建代理
 llm = ChatOpenAI(
-    model="qwen-plus",
-    api_key=os.getenv("aliQwen-api"),
-    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+    model="deepseek-chat", # deepseek-chat 对应 DeepSeek-V3.2 的非思考模式
+    api_key=os.getenv("deepseek-api"),
+    base_url="https://api.deepseek.com"
 )
-
 # 创建聊天提示模板，定义agent的对话结构和角色
 prompt = ChatPromptTemplate.from_messages(
     [

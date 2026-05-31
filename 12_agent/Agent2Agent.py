@@ -20,17 +20,27 @@ LangChain1.0 核心组件：
 """
 
 import os
+
+from langchain.chat_models import init_chat_model
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableLambda
 from langchain.tools import tool
+from dotenv import load_dotenv
 
+load_dotenv()
 # ===================== 通义千问配置（完全不变） =====================
-llm = ChatOpenAI(
-    model="qwen-plus",
-    api_key=os.getenv("aliQwen-api"),
-    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+# llm = ChatOpenAI(
+#     model="qwen-plus",
+#     api_key=os.getenv("aliQwen-api"),
+#     base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+# )
+llm = init_chat_model(
+    model="deepseek-chat", # deepseek-chat 对应 DeepSeek-V3.2 的非思考模式
+    model_provider="deepseek",
+    api_key=os.getenv("deepseek-api"),
+    base_url="https://api.deepseek.com"
 )
 output_parser = StrOutputParser()
 
