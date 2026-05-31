@@ -1,3 +1,9 @@
+双击 Shift	全局搜索（文件、类、设置、操作）
+Ctrl + E	最近打开的文件
+Ctrl + Alt + L	格式化代码（对齐、缩进）
+Ctrl + Alt + O	优化导入（去掉无用的 import）
+Alt + Enter	万能修复（导包、补异常、生成方法等）
+
 numerate(messages)	遍历列表时同时获得索引和元素
 msg.__class__	获取对象所属的类
 .__name__	获取类的名称字符串

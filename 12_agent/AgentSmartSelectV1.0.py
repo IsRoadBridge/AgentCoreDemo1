@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 # 1.Tool 定义
 @tool
 def get_weather(loc: str) -> dict:
@@ -30,9 +31,8 @@ def get_weather(loc: str) -> dict:
     }
     response = httpx.get(url, params=params, timeout=30)
     data = response.json()
-    #print(json.dumps(data, ensure_ascii=False, indent=2))
+    # print(json.dumps(data, ensure_ascii=False, indent=2))
     return json.dumps(data, ensure_ascii=False)
-
 
 
 # 2 结构化输出（推荐）
@@ -45,11 +45,10 @@ class WeatherCompareOutput(TypedDict):
 
 # 3 模型（OpenAI Compatible）
 model = ChatOpenAI(
-    model="deepseek-chat", # deepseek-chat 对应 DeepSeek-V3.2 的非思考模式
+    model="deepseek-chat",  # deepseek-chat 对应 DeepSeek-V3.2 的非思考模式
     api_key=os.getenv("deepseek-api"),
     base_url="https://api.deepseek.com"
 )
-
 
 # 4 创建Agent
 agent = create_agent(
