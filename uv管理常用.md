@@ -2,7 +2,12 @@
 pip install uv
 2. 创建uv项目的两种方式  第一种直接在pycharm里面选择uv创建项目，
    第二种跳到指定目录执行uv init my-project，然后用pycharm打开项目，缺vnev环境就在终端执行uv venv
-3. 常用命令
+3. 如果只想让配置对某个特定项目生效，可以在项目根目录下的 pyproject.toml 文件中添加以下内容：
+uv下载慢配加速国内镜像、
+[tool.uv]
+index-url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+
+4. 常用命令
 uv init	在当前或指定目录初始化一个新的Python项目，会自动生成 pyproject.toml 等文件。	uv init my-project
 uv add <package>	为项目添加一个或多个依赖包，并自动更新 pyproject.toml 和 uv.lock 文件。	uv add requests
 uv remove <package>	从项目中移除指定的依赖包。	uv remove requests
